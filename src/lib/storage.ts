@@ -1,4 +1,5 @@
 import { differenceInMinutes, format, getHours } from 'date-fns'
+import { json } from 'stream/consumers'
 
 export const getStorage = (key: string) => {
    const data = localStorage.getItem(key)
@@ -9,13 +10,17 @@ export const getStorage = (key: string) => {
 }
 
 export const saveStorage = (key: string, data: CartItem[]) => {
-   localStorage.removeItem(key)
+   clearStorage(key)
 
    return localStorage.setItem(key, JSON.stringify(data))
 }
 
+export const clearStorage = (key: string) => {
+   return localStorage.removeItem(key)
+}
+
 export const saveHours = (key: string) => {
-   localStorage.removeItem(key)
+   clearStorage(key)
 
    let data = new Date().toISOString()
 

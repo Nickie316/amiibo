@@ -1,4 +1,5 @@
-import { compareHours, getStorage, saveHours, saveStorage } from "@/lib/storage";
+import { clearStorage, compareHours, getStorage, saveHours, saveStorage } from "@/lib/storage";
+import { clear } from "console";
 import { create } from "zustand";
 
 type CartStore = {
@@ -108,5 +109,8 @@ export const useCart = create<CartStore>((set, get) => ({
 
    cartValue: () => get().cart.reduce((total, item) => total + (item.price * item.quantity), 0),
 
-   clearCart: () => set({ cart: [] }),
+   clearCart: () => set(state => {
+      clearStorage('cart')
+      return { ...state, cart: [] }
+   })
 }));
